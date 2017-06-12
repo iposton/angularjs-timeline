@@ -1,0 +1,23 @@
+{
+  "name": "timeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test",
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "6.10.2",
+    "npm": "5.0.0"
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ]
+}
