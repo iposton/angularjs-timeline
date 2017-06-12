@@ -27,7 +27,7 @@
                                     <h1>Horizontal Timeline &rarr;</h1>
                                     <h3>12 minutes in seconds</h3>
                                     <div>
-                                        <md-input-container style="color:#fff; width:200px;">
+                                        <md-input-container>
                                             <label>Minutes...</label>
                                             <input type="number" id="minutes" ng-model="vm.mins" ng-change="vm.addAction(vm.playerMinutes, vm.team)" min="0" max="12" />
                                         </md-input-container>
@@ -58,8 +58,8 @@
                                     </div>
                                     <div ng-if="vm.sameMinutesAway.length > 1" class="sameminutes-away-block" style="left:{{vm.sameMinutesAway[0].counter}}px">{{vm.sameMinutesAway.length}}</div>
                             </section>
-                            <div style="margin-top:100px; text-align: center;">
-                                Select a player in the side navigation and then use the input box to add Minutes played. The Max value is 12 minutes. This Timeline represents one quarter of professional basketball with a timeline displaying 12 minutes in seconds.
+                            <div class="instructions">
+                                Home = <span class="home-block">&nbsp&nbsp </span> &nbsp Away = <span class="away-block">&nbsp&nbsp </span> </br> Select a player in the side navigation and then use the input box to add Minutes played. The Max value is 12 minutes. This Timeline represents one quarter of professional basketball with a timeline displaying 12 minutes in seconds.
                             </div>
                         </md-content>
                        </div>`
