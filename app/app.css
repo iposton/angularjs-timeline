@@ -1,11 +1,11 @@
 body {
-  font: normal 16px/1.5 "Helvetica Neue", sans-serif;
-  background: #222;
-  color: #fff;
+    font: normal 16px/1.5 "Helvetica Neue", sans-serif;
+    background: #222;
+    color: #fff;
 }
 
-/* Sidenav area */
 
+/* Sidenav area */
 
 md-list-item > button,
 md-list-item > a {
@@ -23,23 +23,7 @@ md-sidenav md-list {
 }
 
 .player-list {
-    height: 92vh;
-}
-
-
-/* Primary content area */
-
-
-#content {
-    background: #222;
-    color: #fff;
-    width: 90%;
-}
-
-
-
-#content md-icon.avatar {
-    margin-top: 10px;
+    height: 100vh;
 }
 
 md-list-item .active.away {
@@ -51,7 +35,6 @@ md-list-item .active.home {
     background-color: rgba(52, 152, 219, 0.6);
     color: #FFF;
 }
-
 
 md-list-item:hover .away,
 md-list .md-button:not([disabled]):hover.away {
@@ -65,8 +48,6 @@ md-list .md-button:not([disabled]):hover.home {
     color: #FFF;
 }
 
-
-
 md-list-item .md-focused {
     background: #fff!important;
 }
@@ -76,47 +57,42 @@ md-list:focus {
 }
 
 
+/* Primary content area */
 
-.md-button.menuBtn > md-icon {
+#content {
+    background: #222;
+    color: #fff;
+    width: 90%;
+}
+
+.md-button.menu {
     fill: white;
     width: 24px;
-    height: 24px;
+    height: 15px;
 }
 
-#content .md-button.share:active > md-icon {
-    background-color: #dadada;
-    border-radius: 75%;
-    padding: 4px;
-    transition: all 100ms ease-out 30ms;
-}
-
-#content img {
-    display: block;
-    height: auto;
-    max-width: 500px;
-}
 
 /* .section SECTION
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .section {
-  background: #222;
-  padding: 50px 0;
+    background: #222;
+    padding: 50px 0;
 }
 
 .section .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .section h1 {
-  font-size: 2.5rem;
+    font-size: 2.5rem;
 }
 
 .section h2 {
-  font-size: 1.3rem;
+    font-size: 1.3rem;
 }
 
 
@@ -124,84 +100,98 @@ md-list:focus {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .timeline {
- /* white-space: nowrap;
-  overflow-x: hidden;*/
-  background: #222;
-
+    background: #222;
 }
 
 .timeline div#hr {
-  font-size: 0;
-  width: 90vw;
-  /*padding: 250px 0;*/
-  transition: all 1s;
-  height: 3px;
-  margin: 0 auto;
+    font-size: 0;
+    width: 90vw;
+    transition: all 1s;
+    height: 3px;
+    margin: 0 auto;
 }
 
 .timeline ol {
-  padding: 0;
-  height: 3px;
-  background: #fff;
+    padding: 0;
+    height: 3px;
+    background: #fff;
 }
 
 .timeline ol li {
-  /*position: absolute;*/
-  display: inline-block;
-  list-style-type: none;
-  height: 3px;
-  width: 1px;
-  background: #F45B69;
-  margin-left: 9.5%;
- 
+    /*position: absolute;*/
+    display: inline-block;
+    list-style-type: none;
+    height: 3px;
+    width: 1px;
+    background: #F45B69;
+    margin-left: 9.5%;
 }
 
 .timeline ol li span {
-  font-size: 14px;
- 
+    font-size: 14px;
 }
 
-/*.timeline ol li:last-child {
-  background: transparent;
- 
-}*/
+.timeline .mark {
+    width: 17px;
+    height: 30px;
+    background-color: blue;
+    position: relative;
+    left: 0;
+    margin-top: 0;
+    color: #fff;
+    font-size: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    -moz-transition: all 0.8s ease 0s;
+}
+
+.timeline .mark.sameminuteshome {
+    display: none;
+}
+
+.timeline .mark.sameminutesaway {
+    display: none;
+}
+
+.timeline .sameminutes-home-block {
+    width: 17px;
+    height: 30px;
+    background-color: blue;
+    position: relative;
+    margin-top: 0;
+    color: #fff;
+    font-size: 12px;
+    display: inline-block;
+    text-align: center;
+    -moz-transition: all 0.8s ease 0s;
+}
+
+.timeline .sameminutes-away-block {
+    width: 17px;
+    height: 30px;
+    background-color: red;
+    position: relative;
+    margin-top: 0;
+    color: #fff;
+    font-size: 12px;
+    display: inline-block;
+    text-align: center;
+    -moz-transition: all 0.8s ease 0s;
+}
+
+.timeline .red {
+    background-color: red;
+}
+
+.timeline div:nth-child-4 {
+    background-color: red;
+}
 
 
-  .timeline .mark { 
-   width:17px;
-   height:30px; 
-   background-color:blue; 
-   position:relative; 
-   left:0;
-   margin-top: 0;
-   color: #fff; 
-   font-size: 12px;
-   display: inline-block;
-   border-radius: 50%;
-   text-align: center;
-   -moz-transition : all 0.8s ease 0s;
- }
+/* Minutes Input */
 
-  .timeline .mark.sameminutes { 
-   width:8px;
-   height:20px; 
-   border-radius: 0%;
-  
- }
-
-.timeline .red{ 
- 
-   background-color:red; 
-  
- }
-
- .timeline div:nth-child-4 { 
- 
-   background-color:red; 
-  
- }
-
- md-input-container {
+md-input-container {
     margin: 0 0;
     color: #fff;
     font-size: 16px;
@@ -216,14 +206,24 @@ md-input-container .md-input-has-value,
     color: #fff!important;
 }
 
-md-input-container:not(.md-input-invalid).md-input-focused label {
+md-input-container:not(.md-input-invalid).md-input-focused label,
+md-input-container.md-input-has-value label:not(.md-no-float) {
     color: #fff;
 }
 
 md-input-container .md-input {
-  border-color: #fff;
+    border-color: #fff;
 }
 
 md-input-container label {
-  color: #fff;
+    color: #fff;
+}
+
+@media only screen and (max-width: 500px) {
+    .timeline div#hr {
+        width: 100vw!important;
+    }
+    #content {
+        width: 100%;
+    }
 }
