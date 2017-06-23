@@ -17,7 +17,7 @@
                                     <a class="md-button home" id="btn" ng-click="vm.selectPlayer(h); vm.setActive(h, vm.team.home.players, vm.team)" index="$index" ng-class="{active: h.active}" on-load-clicker> {{h.player_name}}</a>
                                 </md-list-item>
                                 <md-list-item ng-repeat="a in vm.team.away.players">
-                                    <a class="md-button away" id="btn" ng-click="vm.selectPlayer(a); vm.setActive(a, vm.team.away.players, vm.team)" index="$index" ng-class="{active: a.active}"> {{a.player_name}}</a>
+                                    <a class="md-button away" id="btn" ng-click="vm.selectPlayer(a); vm.setActive(a, vm.team.away.players, vm.team)" index="$index" ng-class="{active: a.active}" on-load-clicker> {{a.player_name}}</a>
                                 </md-list-item>
                             </md-list>
                         </md-sidenav>
@@ -60,8 +60,8 @@
                                     
                 
                                    
-                                        <div ng-if="vm.countZero > 1" class="sameminutes-away-block" style="">{{vm.countZero}}a</div>
-                                        <div ng-if="vm.countSame > 1" class="sameminutes-away-block" style="left:{{vm.holdCounter}}px">{{vm.countSame}}b</div>
+                                        <div ng-if="vm.countZero > 1" class="sameminutes-away-block" style="">{{vm.countZero}}</div>
+                                        <div ng-if="vm.countSame > 1" class="sameminutes-away-block" style="left:{{vm.holdCounter}}px">{{vm.countSame}}</div>
                                     </div>
                                     <div ng-repeat="a in vm.team.away.players" style="display:inline-block">
                                     
@@ -132,8 +132,7 @@
                         initials: 'LJ',
                         counter: 0,
                         location: 'away',
-                        same: false,
-                        last: false
+                        same: false
 
                     }, {
                         id: 'h2',
@@ -141,8 +140,7 @@
                         initials: 'KI',
                         counter: 0,
                         location: 'away',
-                        same: false,
-                        last: false
+                        same: false
 
                     }, {
                         id: 'h3',
@@ -150,8 +148,7 @@
                         initials: 'RJ',
                         counter: 0,
                         location: 'away',
-                        same: false,
-                        last: false
+                        same: false
                     }
 
                 ]
@@ -163,16 +160,14 @@
                         initials: 'KD',
                         counter: 0,
                         location: 'home',
-                        same: false,
-                        last: false
+                        same: false
                     }, {
                         id: 'a2',
                         player_name: 'Steph Curry',
                         initials: 'SC',
                         counter: 0,
                         location: 'home',
-                        same: false,
-                        last: false
+                        same: false
                     }
 
                 ]
@@ -186,11 +181,10 @@
             //Render timeline width by element id
             var d = document.getElementById('hr');
             d.style.width = (self.lengthOfPeriodInSeconds / 12 - 1) + 'vw';
+
         }
 
         function addAction(timeInSeconds, team) {
-            //self.addMore = addMore;
-
             //Define Home and Away players from team object
             var home = team.home.players;
             var away = team.away.players;
@@ -230,6 +224,10 @@
             if (selectedPlayer.location === 'away') {
                 var countZero = 0;
                 var countSame = 0;
+                var countNotSame = 0;
+                var countNotSelected = 0;
+                var notselectedbutsame;
+                var sameArray = [];
 
                 angular.forEach(away, function(a) {
 
@@ -239,19 +237,20 @@
                         countZero += 1;
                         self.countZero = countZero;
                         console.log(self.countZero, 'count for zero counter');
+                        console.log(countSame, "countSame at zero");
 
                         //if a user goes back to zero
                         if (a.counter === 0 && countZero > 1) {
                             a.same = true;
                         }
 
-                        // if (countSame === 1) {
-                        //     console.log(countSame, "countSame at zero");
-                        //     //a.same = false;
-                        //     self.countSame = countSame;
-                        //     countSame = countSame;
-                        //     console.log(countSame, 'countSame at zero dont count');
-                        // } 
+                        if (countSame === 1) {
+                            console.log(countSame, "countSame at zero");
+                            //a.same = false;
+                            self.countSame = countSame;
+                            countSame = countSame;
+                            console.log(countSame, 'countSame at zero dont count');
+                        }
 
                         //sameToItself = false;
 
@@ -261,22 +260,18 @@
 
                     if (a.counter > 0) {
 
-
-
                         if (a.counter === selectedPlayer.counter) {
 
                             countSame += 1;
                             self.countSame = countSame;
-
-                            sameToItself = true;
-                            //console.log(a, 'nothing mathces my counter Iam false');
+                            a.sametoitself = true;
                             a.same = false;
-                            //sameToItself = countSame;
-                            console.log(countSame, 'if nothing matches selected should equal 1 else 2');
-                            console.log(a, 'this player matches selectedPlayer for same counters');
-                            self.holdCounter = a.counter;
-                            //if same count is 1 do something keep piece false
-                            //if count is 2 make a group make piece true to hide and only show group 
+
+                        }
+
+                        if (a.counter != selectPlayer.counter && selectedPlayer.counter != 0) {
+                            countNotSame += 1;
+                            a.same = false;
 
                         }
 
@@ -284,64 +279,89 @@
 
                 })
 
-                var countNotSelected = 0;
+
                 angular.forEach(away, function(a) {
 
                     if (a.counter > 0) {
 
-                        if (countSame > 1) {
-                            sameToItself = false;
+                        if (countSame > 1 && a.counter === selectedPlayer.counter) {
+
+                            a.sametoitself = false;
                             a.same = true;
-                            //countSame += 1;
                             self.countSame = countSame;
                             self.holdCounter = a.counter;
-                            console.log(countSame, 'whats the count? should be 2');
-                            console.log(self.holdCounter, 'whats the holdCounter?');
-                            console.log(a, 'we are equal to selected player');
 
 
-                        } else {
+                        } else if (countNotSame > 1 && a.counter != selectedPlayer.counter) {
+
+                            if (a.counter === self.holdCounter) {
 
 
-
-                            if (a.active === false) {
-                                //self.holdCounter = a.counter;
-                                console.log(a, 'countNotSelected');
-                                console.log(self.holdCounter, 'whats the hold counter? if active false');
-                                console.log(a.counter, 'if a.counter === a.counter');
-                                if (a.counter === a.counter) {
-                                    countNotSelected += 1;
-
-                                    self.holdCounter = a.counter;
-                                    console.log(countNotSelected, 'countNotSelected has a match if count is 2 else its solo');
+                                if (a.id != a.id) {
+                                    a.same = true;
                                 }
+
+                                countNotSelected += 1;
+                                self.holdCounter = a.counter;
+                                console.log(a, 'countNotSelected same');
+
+                                sameArray.push(a);
+                                console.log(sameArray, 'sameArray');
+
 
                             }
 
 
+                            console.log(countNotSelected, 'countNotSelected has a match if count is 2 else its solo');
+
+
+                            if (countNotSelected > 1 && a.same === false) {
+
+                                a.same = true;
+                            }
+
 
                         }
+
+
 
                         if (countNotSelected > 1) {
                             self.countSame = countNotSelected;
+                            if (a.counter != selectedPlayer.counter) {
+
+                                a.same = true;
+                            }
+
+                            //a.same = true;
                         }
 
-                        if (countSame > 1 && self.holdCounter != a.counter) {
-                            a.same = false;
+                        // if (countSame === 0) {
+                        //     console.log(a, "what a is going false?");
+                        //     a.same = false;
+                        //     self.countSame = countSame;
 
+                        // }
+
+                        if (countZero > 1) {
+                            a.same = false;
+                            self.countSame = countSame;
                         }
 
                     }
 
                     //adjust this if you add more players to team
                     if (a.counter === 0 && countZero === 1) {
-                        console.log(a, "making this false");
-                        console.log(countSame, "checking countSame when last zero selected");
                         a.same = false;
                     }
 
 
                 });
+                if (sameArray.length > 1) {
+                    angular.forEach(sameArray, function(a) {
+                        a.same = true;
+                    });
+                }
+
 
             }
 
