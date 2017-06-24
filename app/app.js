@@ -7,10 +7,12 @@
             transclude: true,
             controller: timelineCtrl,
             controllerAs: 'vm',
-            template: `<div class="container player-list" layout="row" flex>
-                        <md-button class="menu" ng-click="vm.toggleList()" hide-gt-sm aria-label="Show list sidenav">
+            template: `<md-toolbar layout="row" hide-gt-sm> <md-button class="menu" ng-click="vm.toggleList()" hide-gt-sm aria-label="Show list sidenav">
                             menu
-                        </md-button>
+                        </md-button></md-toolbar>
+                        <div class="container player-list" layout="row" flex>
+                        
+           
                         <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-4dp" md-component-id="left">
                             <md-list ng-click="vm.toggleLessonList()">
                                 <md-list-item ng-repeat="h in vm.team.home.players">
@@ -21,6 +23,7 @@
                                 </md-list-item>
                             </md-list>
                         </md-sidenav>
+                      
                         <md-content id="content">
                             <section class="section intro">
                                 <div class="container">
@@ -180,7 +183,7 @@
         function init(lengthOfPeriodInSeconds) {
             //Render timeline width by element id
             var d = document.getElementById('hr');
-            d.style.width = (self.lengthOfPeriodInSeconds / 12 - 1) + 'vw';
+            d.style.width = (lengthOfPeriodInSeconds / 12 - 1) + 'vw';
 
         }
 
@@ -191,13 +194,26 @@
             //Get ID of the selected player
             var d = document.getElementById(selectedId);
             //Multiply model value entered in input by 60 to represent 1 minute
-            var minutes = self.mins * 60;
-            selectedPlayer.counter = minutes;
-            self.playerMinutes = selectedPlayer.counter;
+            var minutes = self.mins;
+
+           //Deal with responsive-ness
+            var mq = window.matchMedia("(min-width: 500px)");
+            if (mq.matches) {
+                // window width is at least 500px
+                minutes = self.mins * 60;
+                selectedPlayer.counter = minutes;
+                self.playerMinutes = selectedPlayer.counter;
+                console.log('we greater than 500px');
+            } else {
+                minutes = self.mins * 30;
+                selectedPlayer.counter = minutes;
+                self.playerMinutes = selectedPlayer.counter * 2;
+                console.log('we at less than 500px');
+            }
+
             //Style div by selected id move left time represented in pixels
             d.style.left = minutes + 'px';
             var sameToItself;
-
 
             if (self.sameMinutesHome.length <= 2 && selectedPlayer.location === 'home') {
                 home.filter(function(h) {
@@ -393,7 +409,7 @@
                 }
             })
 
-            self.move = '';
+            //self.mins = 0;
             item.active = true;
 
         }
